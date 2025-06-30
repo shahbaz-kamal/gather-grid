@@ -1,0 +1,37 @@
+[
+  {
+    "eventTitle": "Tech Conference 2023",
+    "name": "John Smith",
+    "email": "john.smith@example.com",
+    "dateAndTime": "2023-11-15T09:00:00.000Z",
+    "location": "San Francisco Convention Center",
+    "description": "Annual technology conference featuring the latest innovations in AI and blockchain",
+    "attendeeCount": 150
+  },
+ 
+  {
+    "eventTitle": "Startup Workshop",
+    "name": "Michael Chen",
+    "email": "michael@startup.io",
+    "dateAndTime": "2023-09-05T10:00:00.000Z",
+    "location": "Virtual (Zoom Meeting)",
+    "description": "Learn how to launch your startup in 90 days"
+  },
+  {
+    "eventTitle": "Art Exhibition",
+    "name": "Emma Wilson",
+    "email": "emma@artgallery.org",
+    "dateAndTime": "2023-10-10T18:00:00.000Z",
+    "location": "National Art Museum",
+    "description": "Contemporary art exhibition featuring emerging artists",
+    "attendeeCount": 200
+  },
+  {
+    "eventTitle": "Charity Gala",
+    "name": "David Rodriguez",
+    "email": "david@charity.org",
+    "dateAndTime": "2023-12-05T19:30:00.000Z",
+    "location": "Grand Ballroom, Hilton Hotel",
+    "description": "Annual fundraiser for children's education"
+  }
+]
