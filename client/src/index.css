@@ -1,19 +1,27 @@
+@import url("https://fonts.googleapis.com/css2?family=Inter:ital,opsz,wght@0,14..32,100..900;1,14..32,100..900&family=Lora:ital,wght@0,400..700;1,400..700&display=swap");
+
 @import "tailwindcss";
 @plugin "daisyui";
 @custom-variant dark (&:where([data-theme=dark], [data-theme=dark] *));
 
 @theme {
-  --color-text: #090e0a;
-  --color-background: #fbfdfb;
-  --color-primary: #3dcb64;
-  --color-secondary: #8eefa9;
-  --color-accent: #44f875;
+  /* ===== LIGHT THEME ===== */
+  --color-light-text: #1b1c17;        /* Main text and headings */
+  --color-light-background: #fbfbf7;  /* App background */
+  --color-light-primary: #a7b963;     /* Navbar, primary buttons */
+  --color-light-secondary: #c0d6a5;   /* Secondary buttons, inputs */
+  --color-light-accent: #83b972;      /* Call-to-action (Join/Add Event) */
 
-  --color-dark-text: #e1e0f4;
-  --color-dark-background: #070712;
-  --color-dark-primary: #9e9edd;
-  --color-dark-secondary: #612b77;
-  --color-dark-accent: #b950c0;
+  /* ===== DARK THEME ===== */
+  --color-dark-text: #f2f1e9;        /* Dark mode text */
+  --color-dark-background: #1b1b16;  /* Dark background */
+  --color-dark-primary: #d0c976;     /* Dark navbar, primary buttons */
+  --color-dark-secondary: #98ab84;   /* Subtle UI in dark mode */
+  --color-dark-accent: #6a9f5f;      /* Action highlights in dark mode */
 }
-
-
+.font-inter {
+  font-family: "Inter", sans-serif;
+}
+.font-lora {
+  font-family: "Lora", serif;
+}

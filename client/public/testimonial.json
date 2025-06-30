@@ -1,0 +1,31 @@
+[
+    {
+      "id": 1,
+      "name": "Emily Johnson",
+      "title": "Event Organizer",
+      "imageUrl": "https://randomuser.me/api/portraits/women/44.jpg",
+      "comment": "This platform made managing my events so easy and stress-free. Highly recommend!"
+    },
+    {
+      "id": 2,
+      "name": "Michael Smith",
+      "title": "Musician",
+      "imageUrl": "https://randomuser.me/api/portraits/men/35.jpg",
+      "comment": "I joined multiple concerts and the experience was seamless. Great user interface!"
+    },
+    {
+      "id": 3,
+      "name": "Sofia Martinez",
+      "title": "Workshop Host",
+      "imageUrl": "https://randomuser.me/api/portraits/women/68.jpg",
+      "comment": "Adding and managing my workshops has never been easier. Fantastic support too."
+    },
+    {
+      "id": 4,
+      "name": "James Lee",
+      "title": "Attendee",
+      "imageUrl": "https://randomuser.me/api/portraits/men/52.jpg",
+      "comment": "Finding events tailored to my interests is now quick and simple thanks to the filters."
+    }
+  ]
+  

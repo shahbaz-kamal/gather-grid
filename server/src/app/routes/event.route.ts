@@ -1,8 +1,24 @@
 import express from "express";
-import { addEvent, getEvents } from "../../controllers/events.controller";
+import {
+  addEvent,
+  getEvents,
+  getSingleEvent,
+  joinEvent,
+  updateEvent,
+} from "../../controllers/events.controller";
 
 export const eventsRoutes = express.Router();
 
+//add event
 eventsRoutes.post("/add-event", addEvent);
-
+//get all event
 eventsRoutes.get("/get-events", getEvents);
+
+//get single event
+eventsRoutes.get("/get-single-event/:id", getSingleEvent);
+
+//update single event
+eventsRoutes.patch("/update-event/:id", updateEvent); //update evnet
+
+// joining events, increasing attendee count count
+eventsRoutes.patch("/join/:id", joinEvent);

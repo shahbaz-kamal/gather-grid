@@ -16,11 +16,11 @@ const ThemeController = ({ isDarkMode, setIsDarkMode }) => {
       {/* moon icon */}
       {isDarkMode ? (
         <div onClick={handleSwitch}>
-          <FaRegMoon />
+          <FaRegMoon size={25} />
         </div>
       ) : (
         <div onClick={handleSwitch}>
-          <FaSun />
+          <FaSun size={25} />
         </div>
       )}
     </label>

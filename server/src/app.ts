@@ -2,6 +2,7 @@ import express, { Application, NextFunction, Request, Response } from "express";
 import cors from "cors";
 import { logger } from "./app/middlewares/logger";
 import { eventsRoutes } from "./app/routes/event.route";
+import { authRoutes } from "./app/routes/auth.routes";
 
 const app: Application = express();
 
@@ -12,6 +13,9 @@ app.use(logger);
 
 //using routes
 app.use("/api/events", eventsRoutes);
+
+//authentication
+ app.use("/api/auth", authRoutes); // Uncomment when auth routes are implemented
 
 // handles 404 error
 app.use((req: Request, res: Response, next: NextFunction) => {

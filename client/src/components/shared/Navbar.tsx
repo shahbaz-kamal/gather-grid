@@ -1,5 +1,8 @@
 import { useEffect, useState } from "react";
 import ThemeController from "./ThemeController";
+import { links } from "../../utils/navlinks";
+import { Link, NavLink } from "react-router";
+import logo from "../../assets/logo.png";
 
 const Navbar = () => {
   const [isDarkMode, setIsDarkMode] = useState(false);
@@ -14,9 +17,24 @@ const Navbar = () => {
       html.setAttribute("data-theme", "light");
     }
   }, [isDarkMode]);
-  console.log(isDarkMode);
+
+  const navLinks = links.map((link) => (
+    <NavLink
+      key={link.id}
+      to={link.to}
+      className={({ isActive }) =>
+        isActive
+          ? "text-light-accent dark:text-dark-primary font-semibold text-base md:text-lg"
+          : "text-light-text dark:text-dark-text  font-semibold text-base md:text-lg "
+      }
+    >
+      <li className="group relative hover:text-light-primary hover:dark:text-dark-accent hover:font-semibold transition duration-300 ease-in-out">
+        {link.title}
+      </li>
+    </NavLink>
+  ));
   return (
-    <div className=" navbar bg-primary dark:bg-dark-primary shadow-sm">
+    <div className="navbar container mx-auto">
       <div className="navbar-start">
         <div className="dropdown">
           <div tabIndex={0} role="button" className="btn btn-ghost lg:hidden">
@@ -40,52 +58,46 @@ const Navbar = () => {
             tabIndex={0}
             className="menu menu-sm dropdown-content bg-base-100 rounded-box z-1 mt-3 w-52 p-2 shadow"
           >
-            <li>
-              <a>Item 1</a>
-            </li>
-            <li>
-              <a>Parent</a>
-              <ul className="p-2">
-                <li>
-                  <a>Submenu 1</a>
-                </li>
-                <li>
-                  <a>Submenu 2</a>
-                </li>
-              </ul>
-            </li>
-            <li>
-              <a>Item 3</a>
-            </li>
+            {navLinks}
           </ul>
         </div>
-        <a className="btn btn-ghost text-xl">daisyUI</a>
+        <div className="flex justify-center items-center gap-2">
+          <div className="w-10 h-10 rounded-full">
+            <img
+              className="w-full h-full object-cover rounded-full"
+              src={logo}
+              alt=""
+            />
+          </div>
+          <Link to={"/"}>
+            <h1 className="font-bold text-lg md:text-xl lg:text-2xl font-lora hidden md:inline-block">
+              Gather
+              <span className="text-light-accent dark:text-dark-primary ">
+                Grid
+              </span>
+            </h1>
+          </Link>
+        </div>
       </div>
       <div className="navbar-center hidden lg:flex">
-        <ul className="menu menu-horizontal px-1">
-          <li>
-            <a>Item 1</a>
-          </li>
-          <li>
-            <details>
-              <summary>Parent</summary>
-              <ul className="p-2">
-                <li>
-                  <a>Submenu 1</a>
-                </li>
-                <li>
-                  <a>Submenu 2</a>
-                </li>
-              </ul>
-            </details>
-          </li>
-          <li>
-            <a>Item 3</a>
-          </li>
-        </ul>
+        <ul className="menu menu-horizontal px-1 gap-2">{navLinks}</ul>
       </div>
-      <div className="navbar-end">
-        <a className="btn">Button</a>
+      <div className="navbar-end space-x-4">
+        <div className="">
+          <Link to={"/sign-in"}>
+            {" "}
+            <button className="btn  bg-light-accent border-none dark:bg-dark-primary/60 text-light-text dark:text-dark-text hover:bg-light-primary hover:dark:bg-dark-accent shadow-none  transition duration-300 ease-in-out text-base md:text-lg ">
+              Sign in
+            </button>
+          </Link>
+        </div>
+        <div className="w-10 h-10 rounded-full">
+          <img
+            className="w-full h-full object-cover rounded-full"
+            src={logo}
+            alt=""
+          />
+        </div>
         <ThemeController
           isDarkMode={isDarkMode}
           setIsDarkMode={setIsDarkMode}
