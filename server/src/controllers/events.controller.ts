@@ -51,8 +51,20 @@ export const getEvents = async (
     switch (dateFilter) {
       case "today": {
         const today = new Date();
-        startDate = new Date(Date.UTC(today.getUTCFullYear(), today.getUTCMonth(), today.getUTCDate()));
-        endDate = new Date(Date.UTC(today.getUTCFullYear(), today.getUTCMonth(), today.getUTCDate()));
+        startDate = new Date(
+          Date.UTC(
+            today.getUTCFullYear(),
+            today.getUTCMonth(),
+            today.getUTCDate()
+          )
+        );
+        endDate = new Date(
+          Date.UTC(
+            today.getUTCFullYear(),
+            today.getUTCMonth(),
+            today.getUTCDate()
+          )
+        );
         break;
       }
       case "currentWeek": {
@@ -60,11 +72,23 @@ export const getEvents = async (
         const diffToMonday = day === 0 ? 6 : day - 1;
         const monday = new Date(now);
         monday.setUTCDate(now.getUTCDate() - diffToMonday);
-        startDate = new Date(Date.UTC(monday.getUTCFullYear(), monday.getUTCMonth(), monday.getUTCDate()));
+        startDate = new Date(
+          Date.UTC(
+            monday.getUTCFullYear(),
+            monday.getUTCMonth(),
+            monday.getUTCDate()
+          )
+        );
 
         const sunday = new Date(startDate);
         sunday.setUTCDate(startDate.getUTCDate() + 6);
-        endDate = new Date(Date.UTC(sunday.getUTCFullYear(), sunday.getUTCMonth(), sunday.getUTCDate()));
+        endDate = new Date(
+          Date.UTC(
+            sunday.getUTCFullYear(),
+            sunday.getUTCMonth(),
+            sunday.getUTCDate()
+          )
+        );
         break;
       }
       case "lastWeek": {
@@ -72,21 +96,41 @@ export const getEvents = async (
         const diffToMonday = day === 0 ? 6 : day - 1;
         const lastMonday = new Date(now);
         lastMonday.setUTCDate(now.getUTCDate() - diffToMonday - 7);
-        startDate = new Date(Date.UTC(lastMonday.getUTCFullYear(), lastMonday.getUTCMonth(), lastMonday.getUTCDate()));
+        startDate = new Date(
+          Date.UTC(
+            lastMonday.getUTCFullYear(),
+            lastMonday.getUTCMonth(),
+            lastMonday.getUTCDate()
+          )
+        );
 
         const lastSunday = new Date(startDate);
         lastSunday.setUTCDate(startDate.getUTCDate() + 6);
-        endDate = new Date(Date.UTC(lastSunday.getUTCFullYear(), lastSunday.getUTCMonth(), lastSunday.getUTCDate()));
+        endDate = new Date(
+          Date.UTC(
+            lastSunday.getUTCFullYear(),
+            lastSunday.getUTCMonth(),
+            lastSunday.getUTCDate()
+          )
+        );
         break;
       }
       case "currentMonth": {
-        startDate = new Date(Date.UTC(now.getUTCFullYear(), now.getUTCMonth(), 1));
-        endDate = new Date(Date.UTC(now.getUTCFullYear(), now.getUTCMonth() + 1, 0));
+        startDate = new Date(
+          Date.UTC(now.getUTCFullYear(), now.getUTCMonth(), 1)
+        );
+        endDate = new Date(
+          Date.UTC(now.getUTCFullYear(), now.getUTCMonth() + 1, 0)
+        );
         break;
       }
       case "lastMonth": {
-        startDate = new Date(Date.UTC(now.getUTCFullYear(), now.getUTCMonth() - 1, 1));
-        endDate = new Date(Date.UTC(now.getUTCFullYear(), now.getUTCMonth(), 0));
+        startDate = new Date(
+          Date.UTC(now.getUTCFullYear(), now.getUTCMonth() - 1, 1)
+        );
+        endDate = new Date(
+          Date.UTC(now.getUTCFullYear(), now.getUTCMonth(), 0)
+        );
         break;
       }
     }
@@ -105,10 +149,12 @@ export const getEvents = async (
       console.log(filter);
     }
 
-
-    const result = await eventCollection.find(filter).toArray();
+    const result = await eventCollection
+      .find(filter)
+      .sort({ dateAndTime: -1 })
+      .toArray();
     res.json({
-      sucess: true,
+      success: true,
       message: "Events retrieved successfully",
       events: result,
     });
@@ -128,7 +174,7 @@ export const getSingleEvent = async (
     const query = { _id: new ObjectId(id) };
     const result = await eventCollection.findOne(query);
     res.json({
-      sucess: true,
+      success: true,
       message: "Event retrieved successfully",
       event: result,
     });
@@ -157,7 +203,7 @@ export const updateEvent = async (
     const result = await eventCollection.updateOne(filter, updatedDoc);
 
     res.json({
-      sucess: true,
+      success: true,
       message: "Event Updated successfully",
     });
     return;
@@ -185,11 +231,58 @@ export const joinEvent = async (
     const result = await eventCollection.updateOne(filter, updatedDoc);
 
     res.json({
-      sucess: true,
+      success: true,
       message: "You joined the event successfully",
     });
     return;
   } catch (error) {
     next(error);
+  }
+};
+export const getMyEvents = async (
+  req: Request,
+  res: Response,
+  next: NextFunction
+): Promise<void> => {
+  try {
+    const email = req.query.email as string;
+
+    if (!email) {
+      res.status(400).json({ success: false, message: "Email is required" });
+      return;
+    }
+    const query = { email };
+    const result = await eventCollection.find(query).toArray();
+
+    res.json({
+      success: true,
+      message: "You joined the event successfully",
+      events: result,
+    });
+  } catch (err) {
+    next(err);
+  }
+};
+export const deleteMyEvent = async (
+  req: Request,
+  res: Response,
+  next: NextFunction
+): Promise<void> => {
+  try {
+    const id = req.params.id;
+
+    const query = { _id: new ObjectId(id) };
+    const result = await eventCollection.deleteOne(query);
+    if (res.deletedCount === 0) {
+      res.status(404).json({ success: false, message: "Could not delete" });
+      return;
+    }
+    res.json({
+      success: true,
+      message: "Your event was deleted successfully",
+      events: result,
+    });
+  } catch (err) {
+    next(err);
   }
 };

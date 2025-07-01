@@ -67,7 +67,7 @@ export const getCurrentUser = async (
   next: NextFunction
 ): Promise<void> => {
   try {
-    console.log("hit")
+    console.log("hit");
     const authHeader = req.headers.authorization;
     if (!authHeader) {
       res.status(401).json({ message: "No token provided" });
@@ -93,3 +93,5 @@ export const getCurrentUser = async (
     next(err);
   }
 };
+
+

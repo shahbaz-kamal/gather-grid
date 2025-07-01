@@ -1,7 +1,9 @@
 import express from "express";
 import {
   addEvent,
+  deleteMyEvent,
   getEvents,
+  getMyEvents,
   getSingleEvent,
   joinEvent,
   updateEvent,
@@ -22,3 +24,10 @@ eventsRoutes.patch("/update-event/:id", updateEvent); //update evnet
 
 // joining events, increasing attendee count count
 eventsRoutes.patch("/join/:id", joinEvent);
+
+//getting my events
+eventsRoutes.get("/my-events", getMyEvents);
+
+//delete an event
+
+eventsRoutes.delete("/delete/:id",deleteMyEvent)

@@ -7,10 +7,12 @@ import { AiOutlineCalendar } from "react-icons/ai";
 import { IoTimeOutline } from "react-icons/io5";
 import Swal from "sweetalert2";
 import useAxiosSecure from "../../Hooks/useAxiosSecure";
+import useAuth from "../../Hooks/useAuth";
 const TypedDatePicker = DatePicker as unknown as React.FC<any>;
 const AddEvent = () => {
   const [selectedDate, setSelectedDate] = useState<Date | null>(null);
   const [selectedTime, setSelectedTime] = useState<Date | null>(null);
+  const { user } = useAuth();
 
   const axiosSecure = useAxiosSecure();
 
@@ -21,7 +23,7 @@ const AddEvent = () => {
     const email = e.target.email.value;
     const location = e.target.location.value;
     const description = e.target.description.value;
-    const photoURL = e.target.photoURL.value;
+    const eventPhoto = e.target.photoURL.value;
     if (!selectedDate || !selectedTime) {
       Swal.fire({
         title: "Please select both Date And Time",
@@ -44,7 +46,7 @@ const AddEvent = () => {
       email,
       location,
       description,
-      photoURL,
+      eventPhoto,
       dateAndTime,
     };
 
@@ -107,6 +109,7 @@ const AddEvent = () => {
               <input
                 type="text"
                 name="name"
+                value={user?.name || ""}
                 className="input input-bordered w-full"
                 placeholder="Enter your Name"
                 required
@@ -122,6 +125,7 @@ const AddEvent = () => {
               <input
                 type="email"
                 name="email"
+                value={user?.email || ""}
                 className="input input-bordered  pr-5 w-full"
                 placeholder="Enter your Email"
                 required
@@ -170,7 +174,7 @@ const AddEvent = () => {
                 type="text"
                 name="location"
                 className="input input-bordered w-full"
-                placeholder="Enter your photourl"
+                placeholder="Enter Event location"
                 required
               />
             </div>

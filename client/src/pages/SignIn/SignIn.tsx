@@ -1,6 +1,6 @@
 import React, { use, useState } from "react";
 import SectionTitle from "../../components/shared/SectionTitle";
-import { Link, useNavigate } from "react-router";
+import { Link, useLocation, useNavigate } from "react-router";
 import { FaEye, FaEyeSlash } from "react-icons/fa";
 import useAxiosSecure from "../../Hooks/useAxiosSecure";
 import Swal from "sweetalert2";
@@ -11,11 +11,43 @@ const SignIn = () => {
   const [showPassword, setShowPassword] = useState(false);
   const axiosSecure = useAxiosSecure();
   const navigate = useNavigate();
+  const location = useLocation();
+  const from = location.state?.from?.pathname || "/";
   //handling sign in
-  const handleSignIn = async (e) => {
+  const handleSignIn = async (e:React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     const email = e.target.email.value;
     const password = e.target.password.value;
+
+    // verifying password
+    const regexPass = /^.{6,}$/;
+    const regexUpperCase = /[A-Z]/;
+    const regexLowerCase = /[a-z]/;
+
+    if (!regexPass.test(password)) {
+      Swal.fire({
+        icon: "error",
+        title: "Oops...",
+        text: "Password should be at least 6 characters",
+      });
+      return;
+    }
+    if (!regexUpperCase.test(password)) {
+      Swal.fire({
+        icon: "error",
+        title: "Oops...",
+        text: "Password should contain at least 1 uppercase letter",
+      });
+      return;
+    }
+    if (!regexLowerCase.test(password)) {
+      Swal.fire({
+        icon: "error",
+        title: "Oops...",
+        text: "Password should contain at least 1 lowercase letter",
+      });
+      return;
+    }
     const userInfo = { email, password };
     try {
       setLoading(true);
@@ -39,14 +71,17 @@ const SignIn = () => {
           timer: 1500,
         });
         setLoading(false);
+        e.target.email.value = "";
+        e.target.password.value = "";
+        navigate(from, { replace: true });
         return;
-        navigate("/");
       }
     } catch (error: any) {
+      console.log(error);
       setLoading(false);
       Swal.fire({
         icon: "error",
-        text: error.message,
+        text: error.response.data.message,
       });
       return;
     }
