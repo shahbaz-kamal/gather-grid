@@ -6,8 +6,12 @@ import { authRoutes } from "./app/routes/auth.routes";
 
 const app: Application = express();
 
+const corsOptions = {
+  origin: ["http://localhost:8800"],
+  credentials: true,
+};
 // middlewares
-app.use(cors());
+app.use(cors(corsOptions));
 app.use(express.json());
 app.use(logger);
 
@@ -15,7 +19,11 @@ app.use(logger);
 app.use("/api/events", eventsRoutes);
 
 //authentication
- app.use("/api/auth", authRoutes); // Uncomment when auth routes are implemented
+app.use("/api/auth", authRoutes);
+
+app.get("/",async(req:Request,res:Response)=>{
+  res.send("Welcome to the Event Management API");
+})
 
 // handles 404 error
 app.use((req: Request, res: Response, next: NextFunction) => {

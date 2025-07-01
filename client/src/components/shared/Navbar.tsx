@@ -1,11 +1,15 @@
-import { useEffect, useState } from "react";
+import { useContext, useEffect, useState } from "react";
 import ThemeController from "./ThemeController";
 import { links } from "../../utils/navlinks";
 import { Link, NavLink } from "react-router";
 import logo from "../../assets/logo.png";
 
+import useAuth from "../../Hooks/useAuth";
+
 const Navbar = () => {
   const [isDarkMode, setIsDarkMode] = useState(false);
+  const { user, loading, setUser, setLoading } = useAuth();
+  console.log(user, loading);
 
   useEffect(() => {
     const html = document.documentElement;
@@ -33,6 +37,11 @@ const Navbar = () => {
       </li>
     </NavLink>
   ));
+
+  const handleLogOut = async (e) => {
+    localStorage.removeItem("token");
+    setUser(null);
+  };
   return (
     <div className="navbar container mx-auto">
       <div className="navbar-start">
@@ -83,20 +92,34 @@ const Navbar = () => {
         <ul className="menu menu-horizontal px-1 gap-2">{navLinks}</ul>
       </div>
       <div className="navbar-end space-x-4">
-        <div className="">
-          <Link to={"/sign-in"}>
-            {" "}
-            <button className="btn  bg-light-accent border-none dark:bg-dark-primary/60 text-light-text dark:text-dark-text hover:bg-light-primary hover:dark:bg-dark-accent shadow-none  transition duration-300 ease-in-out text-base md:text-lg ">
-              Sign in
-            </button>
-          </Link>
-        </div>
+        {user ? (
+          <div className="">
+            <Link to={"/sign-in"}>
+              <button
+                onClick={handleLogOut}
+                className="btn  bg-light-accent border-none dark:bg-dark-primary/60 text-light-text dark:text-dark-text hover:bg-light-primary hover:dark:bg-dark-accent shadow-none  transition duration-300 ease-in-out text-base md:text-lg "
+              >
+                Log Out
+              </button>
+            </Link>
+          </div>
+        ) : (
+          <div className="">
+            <Link to={"/sign-in"}>
+              <button className="btn  bg-light-accent border-none dark:bg-dark-primary/60 text-light-text dark:text-dark-text hover:bg-light-primary hover:dark:bg-dark-accent shadow-none  transition duration-300 ease-in-out text-base md:text-lg ">
+                Sign in
+              </button>
+            </Link>
+          </div>
+        )}
         <div className="w-10 h-10 rounded-full">
-          <img
-            className="w-full h-full object-cover rounded-full"
-            src={logo}
-            alt=""
-          />
+          {user && (
+            <img
+              className="w-full h-full object-cover rounded-full"
+              src={user.photo}
+              alt=""
+            />
+          )}
         </div>
         <ThemeController
           isDarkMode={isDarkMode}

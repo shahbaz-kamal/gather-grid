@@ -1,33 +1,59 @@
 import React, { useState } from "react";
 import { FaEye, FaEyeSlash } from "react-icons/fa";
 import SectionTitle from "../../components/shared/SectionTitle";
-import { Link } from "react-router";
+import { Link, useNavigate } from "react-router";
+import useAxiosSecure from "../../Hooks/useAxiosSecure";
+import Swal from "sweetalert2";
+import useAuth from "../../Hooks/useAuth";
 
 const Register = () => {
   const [showPassword, setShowPassword] = useState(false);
+  const axiosSecure = useAxiosSecure();
+  const navigate = useNavigate();
+  const [setLoading, loading] = useAuth();
 
-interface User {
-  name: string;
-  email: string;
-  password: string;
-  photo: string;
-}
+  interface User {
+    name: string;
+    email: string;
+    password: string;
+    photo: string;
+  }
 
-  const handleChange = (e) => {
-    setShowPassword((prev) => ({
-      ...prev,
-      [e.target.name]: e.target.value,
-    }));
-}
-
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
     const name = e.target.name.value;
     const email = e.target.email.value;
     const password = e.target.password.value;
     const photo = e.target.photo.value;
-    const newUser:User = { name, email, password, photo };
-    console.log(newUser)
+    const newUser: User = { name, email, password, photo };
+    console.log(newUser);
+    setLoading(true);
+    const result = await axiosSecure.post("api/auth/register", newUser);
+    if (result.data.success) {
+      Swal.fire({
+        position: "top-end",
+        icon: "success",
+        title: "Registration Successfull",
+        showConfirmButton: false,
+        timer: 1500,
+      });
+      setLoading(false);
+      navigate("/sign-in");
+      // Redirect or show success message
+      return;
+    } else if (result.data.message === "Email already exists") {
+      Swal.fire({
+        position: "top-end",
+        title: "Error!",
+        text: `${result.data.message}. Please Sign in`,
+        icon: "error",
+        showConfirmButton: false,
+        timer: 1500,
+      });
+      navigate("/sign-in");
+      // Handle error
+      return;
+    }
   };
   return (
     <div className="flex flex-col items-center -z-10  bg-background dark:bg-dark-background px-4 mt-20">
@@ -98,7 +124,7 @@ interface User {
               type="text"
               name="photo"
               className="input input-bordered"
-              placeholder="Enter your Name"
+              placeholder="Enter your photourl"
               required
             />
           </div>

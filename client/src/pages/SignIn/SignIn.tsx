@@ -1,27 +1,55 @@
-import React, { useState } from "react";
+import React, { use, useState } from "react";
 import SectionTitle from "../../components/shared/SectionTitle";
-import { Link } from "react-router";
+import { Link, useNavigate } from "react-router";
 import { FaEye, FaEyeSlash } from "react-icons/fa";
+import useAxiosSecure from "../../Hooks/useAxiosSecure";
+import Swal from "sweetalert2";
+import useAuth from "../../Hooks/useAuth";
 
 const SignIn = () => {
-  const [formData, setFormData] = useState({
-    email: "",
-    password: "",
-  });
-
+  const { setUser, setLoading } = useAuth();
   const [showPassword, setShowPassword] = useState(false);
-
-  const handleChange = (e) => {
-    setFormData((prev) => ({
-      ...prev,
-      [e.target.name]: e.target.value,
-    }));
-  };
-
-  const handleSubmit = (e) => {
+  const axiosSecure = useAxiosSecure();
+  const navigate = useNavigate();
+  //handling sign in
+  const handleSignIn = async (e) => {
     e.preventDefault();
-    console.log("Sign In Data:", formData);
-    // Add your login logic here (API call, context, etc.)
+    const email = e.target.email.value;
+    const password = e.target.password.value;
+    const userInfo = { email, password };
+    try {
+      setLoading(true);
+      const result = await axiosSecure.post("api/auth/sign-in", userInfo);
+      if (result.data.success) {
+        console.log(result.data);
+        const token = result.data.token;
+        localStorage.setItem("token", token);
+        setLoading(true);
+
+        const userRes = await axiosSecure.get("api/auth/currentUser", {
+          headers: { Authorization: `Bearer ${token}` },
+        });
+
+        setUser(userRes.data.user);
+        Swal.fire({
+          position: "top-end",
+          icon: "success",
+          title: "Sign in Success",
+          showConfirmButton: false,
+          timer: 1500,
+        });
+        setLoading(false);
+        navigate("/");
+        return;
+      }
+    } catch (error: any) {
+      setLoading(false);
+      Swal.fire({
+        icon: "error",
+        text: error.message,
+      });
+      return;
+    }
   };
 
   return (
@@ -33,7 +61,7 @@ const SignIn = () => {
         ></SectionTitle>
       </header>
       <div className="card bg-base-100 w-full max-w-sm shadow-2xl">
-        <form onSubmit={handleSubmit} className="card-body">
+        <form onSubmit={handleSignIn} className="card-body">
           <div className="form-control">
             <label className="label">
               <span className="label-text text-text dark:text-dark-text mb-1">
@@ -45,8 +73,6 @@ const SignIn = () => {
               name="email"
               className="input input-bordered"
               placeholder="Enter your email"
-              value={formData.email}
-              onChange={handleChange}
               required
             />
           </div>
