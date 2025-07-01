@@ -1,37 +1,152 @@
 [
   {
-    "eventTitle": "Tech Conference 2023",
-    "name": "John Smith",
-    "email": "john.smith@example.com",
-    "dateAndTime": "2023-11-15T09:00:00.000Z",
-    "location": "San Francisco Convention Center",
-    "description": "Annual technology conference featuring the latest innovations in AI and blockchain",
-    "attendeeCount": 150
-  },
- 
-  {
-    "eventTitle": "Startup Workshop",
-    "name": "Michael Chen",
-    "email": "michael@startup.io",
-    "dateAndTime": "2023-09-05T10:00:00.000Z",
-    "location": "Virtual (Zoom Meeting)",
-    "description": "Learn how to launch your startup in 90 days"
+    "eventTitle": "Tech Innovators Conference",
+    "name": "Alice Johnson",
+    "email": "alice@techconf.com",
+    "dateAndTime": "2025-07-20T09:00:00Z",
+    "location": "San Francisco, CA",
+    "description": "A conference to explore emerging technologies and innovations.",
+    "attendeeCount": 450,
+    "eventPhoto": "https://i.ibb.co/XzZfKjp/tech-event.jpg"
   },
   {
-    "eventTitle": "Art Exhibition",
-    "name": "Emma Wilson",
-    "email": "emma@artgallery.org",
-    "dateAndTime": "2023-10-10T18:00:00.000Z",
-    "location": "National Art Museum",
-    "description": "Contemporary art exhibition featuring emerging artists",
-    "attendeeCount": 200
+    "eventTitle": "Startup Pitch Night",
+    "name": "Bob Smith",
+    "email": "bob@startupnight.com",
+    "dateAndTime": "2025-08-05T18:00:00Z",
+    "location": "New York, NY",
+    "description": "An evening for startups to pitch to investors and network.",
+    "attendeeCount": 220,
+    "eventPhoto": "https://i.ibb.co/jkc07z9/pitch-event.jpg"
   },
   {
-    "eventTitle": "Charity Gala",
-    "name": "David Rodriguez",
-    "email": "david@charity.org",
-    "dateAndTime": "2023-12-05T19:30:00.000Z",
-    "location": "Grand Ballroom, Hilton Hotel",
-    "description": "Annual fundraiser for children's education"
+    "eventTitle": "Music Under the Stars",
+    "name": "Carla Green",
+    "email": "carla@musicstars.com",
+    "dateAndTime": "2025-08-10T20:00:00Z",
+    "location": "Austin, TX",
+    "description": "A live music event featuring indie artists in an open park.",
+    "attendeeCount": 700,
+    "eventPhoto": "https://i.ibb.co/6grQky1/music-event.jpg"
+  },
+  {
+    "eventTitle": "AI in Healthcare Summit",
+    "name": "David Lee",
+    "email": "david@healthai.org",
+    "dateAndTime": "2025-09-02T10:30:00Z",
+    "location": "Chicago, IL",
+    "description": "Experts discuss the future of AI in the medical field.",
+    "attendeeCount": 310,
+    "eventPhoto": "https://i.ibb.co/7z0rV8H/ai-event.jpg"
+  },
+  {
+    "eventTitle": "Photography Workshop",
+    "name": "Eva Collins",
+    "email": "eva@photoworkshop.com",
+    "dateAndTime": "2025-08-25T14:00:00Z",
+    "location": "Seattle, WA",
+    "description": "A hands-on workshop for aspiring photographers.",
+    "attendeeCount": 120,
+    "eventPhoto": "https://i.ibb.co/q1P2Cbk/photo-workshop.jpg"
+  },
+  {
+    "eventTitle": "Outdoor Yoga Retreat",
+    "name": "Frank Adams",
+    "email": "frank@yogaretreat.com",
+    "dateAndTime": "2025-07-28T07:00:00Z",
+    "location": "Sedona, AZ",
+    "description": "Rejuvenate your mind and body in a serene outdoor setting.",
+    "attendeeCount": 85,
+    "eventPhoto": "https://i.ibb.co/zRYpxCd/yoga-retreat.jpg"
+  },
+  {
+    "eventTitle": "Culinary Arts Showcase",
+    "name": "Grace Young",
+    "email": "grace@culinaryshow.com",
+    "dateAndTime": "2025-08-15T17:00:00Z",
+    "location": "Los Angeles, CA",
+    "description": "Taste creations from top culinary schools and chefs.",
+    "attendeeCount": 400,
+    "eventPhoto": "https://i.ibb.co/SdNzPfd/food-event.jpg"
+  },
+  {
+    "eventTitle": "Coding Bootcamp Demo Day",
+    "name": "Henry West",
+    "email": "henry@bootcamp.io",
+    "dateAndTime": "2025-08-30T11:00:00Z",
+    "location": "Boston, MA",
+    "description": "Graduates present their final full-stack projects.",
+    "attendeeCount": 200,
+    "eventPhoto": "https://i.ibb.co/pz8HkHZ/bootcamp.jpg"
+  },
+  {
+    "eventTitle": "Book Lovers Meetup",
+    "name": "Isabel Knight",
+    "email": "isabel@readershub.com",
+    "dateAndTime": "2025-07-23T16:00:00Z",
+    "location": "Portland, OR",
+    "description": "A cozy gathering for book discussions and recommendations.",
+    "attendeeCount": 60,
+    "eventPhoto": "https://i.ibb.co/9YgSmxh/book-event.jpg"
+  },
+  {
+    "eventTitle": "Freelancers Networking Evening",
+    "name": "Jack Miller",
+    "email": "jack@freelancenet.com",
+    "dateAndTime": "2025-08-08T18:30:00Z",
+    "location": "Denver, CO",
+    "description": "Connect with other freelancers, agencies, and clients.",
+    "attendeeCount": 180,
+    "eventPhoto": "https://i.ibb.co/GP2vknr/networking-event.jpg"
+  },
+  {
+    "eventTitle": "Climate Change Awareness Walk",
+    "name": "Kelly Brooks",
+    "email": "kelly@greenearth.org",
+    "dateAndTime": "2025-09-05T09:00:00Z",
+    "location": "Washington, D.C.",
+    "description": "Join us in walking for a sustainable future.",
+    "attendeeCount": 650,
+    "eventPhoto": "https://i.ibb.co/0YY2ZPB/climate-event.jpg"
+  },
+  {
+    "eventTitle": "Art in the Alley",
+    "name": "Liam Hunter",
+    "email": "liam@artalley.com",
+    "dateAndTime": "2025-08-22T13:00:00Z",
+    "location": "Detroit, MI",
+    "description": "Street artists display and sell their creations.",
+    "attendeeCount": 330,
+    "eventPhoto": "https://i.ibb.co/h9k3h5g/art-show.jpg"
+  },
+  {
+    "eventTitle": "Hack the Future Hackathon",
+    "name": "Mia Sanders",
+    "email": "mia@hackfuture.dev",
+    "dateAndTime": "2025-09-12T08:00:00Z",
+    "location": "San Jose, CA",
+    "description": "48 hours of coding, innovation, and startup building.",
+    "attendeeCount": 500,
+    "eventPhoto": "https://i.ibb.co/fYtZ4dL/hackathon.jpg"
+  },
+  {
+    "eventTitle": "Digital Marketing Masterclass",
+    "name": "Nathan King",
+    "email": "nathan@dmacademy.com",
+    "dateAndTime": "2025-08-18T10:00:00Z",
+    "location": "Miami, FL",
+    "description": "Master modern marketing tactics and grow your brand.",
+    "attendeeCount": 210,
+    "eventPhoto": "https://i.ibb.co/wJKH3KD/marketing.jpg"
+  },
+  {
+    "eventTitle": "Weekend Film Screening",
+    "name": "Olivia Perez",
+    "email": "olivia@filmnights.com",
+    "dateAndTime": "2025-07-26T19:00:00Z",
+    "location": "Atlanta, GA",
+    "description": "Watch indie films under the stars with local creators.",
+    "attendeeCount": 270,
+    "eventPhoto": "https://i.ibb.co/WGx44jY/film-screening.jpg"
   }
 ]

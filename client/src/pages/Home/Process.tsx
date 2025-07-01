@@ -28,7 +28,7 @@ const steps = [
 const Process = () => {
   return (
     <section className=" bg-background dark:bg-dark-background container mx-auto">
-      <header className="mb-10">
+      <header className="mb-6">
         <SectionTitle
           heading="How It Works"
           subheading="Get started in 4 simple steps"

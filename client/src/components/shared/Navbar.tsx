@@ -93,16 +93,7 @@ const Navbar = () => {
       </div>
       <div className="navbar-end space-x-4">
         {user ? (
-          <div className="">
-            <Link to={"/sign-in"}>
-              <button
-                onClick={handleLogOut}
-                className="btn  bg-light-accent border-none dark:bg-dark-primary/60 text-light-text dark:text-dark-text hover:bg-light-primary hover:dark:bg-dark-accent shadow-none  transition duration-300 ease-in-out text-base md:text-lg "
-              >
-                Log Out
-              </button>
-            </Link>
-          </div>
+          ""
         ) : (
           <div className="">
             <Link to={"/sign-in"}>
@@ -112,15 +103,36 @@ const Navbar = () => {
             </Link>
           </div>
         )}
-        <div className="w-10 h-10 rounded-full">
-          {user && (
-            <img
-              className="w-full h-full object-cover rounded-full"
-              src={user.photo}
-              alt=""
-            />
-          )}
-        </div>
+        {user && (
+          <div className="dropdown dropdown-end">
+            <div
+              tabIndex={0}
+              role="button"
+              className="btn btn-ghost btn-circle avatar"
+            >
+              <div className="w-10 h-10 rounded-full">
+                <img
+                  className="w-full h-full object-cover rounded-full"
+                  src={user.photo}
+                  alt=""
+                />
+              </div>
+            </div>
+            <ul
+              tabIndex={0}
+              className="menu menu-sm dropdown-content bg-base-100 rounded-box z-1 mt-3 w-52 p-2 shadow"
+            >
+              <li className="">{user.name}</li>
+              <li
+                className="hover:bg-light-accent/70 dark:hover:bg-light-accent/70 cursor-pointer transition duration ease-in-out"
+                onClick={handleLogOut}
+              >
+                Logout
+              </li>
+            </ul>
+          </div>
+        )}
+
         <ThemeController
           isDarkMode={isDarkMode}
           setIsDarkMode={setIsDarkMode}

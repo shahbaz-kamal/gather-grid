@@ -39,8 +39,8 @@ const SignIn = () => {
           timer: 1500,
         });
         setLoading(false);
-        navigate("/");
         return;
+        navigate("/");
       }
     } catch (error: any) {
       setLoading(false);

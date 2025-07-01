@@ -6,4 +6,5 @@ export interface IEvent {
   location: string;
   description: string;
   attendeeCount?: number;
+  eventPhoto?: string;
 }
