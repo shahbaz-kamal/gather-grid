@@ -16,8 +16,8 @@
 
 ###
 
-<p align="left">Frontend :https://gather-grid-by-shahbaz.netlify.app/</p>
-<p align="left">Backened :https://gather-grid-server.vercel.app/</p>
+<p align="left">Frontend : https://gather-grid-by-shahbaz.netlify.app/</p>
+<p align="left">Backened : https://gather-grid-server.vercel.app/</p>
 
 ###
 
