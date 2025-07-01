@@ -17,8 +17,8 @@ const SignIn = () => {
   //handling sign in
   const handleSignIn = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
-    const email = e.target.email.value;
-    const password = e.target.password.value;
+    const email = (e.target as HTMLFormElement).email.value;
+    const password = (e.target as HTMLFormElement).password.value;
 
     // verifying password
     const regexPass = /^.{6,}$/;
@@ -72,8 +72,9 @@ const SignIn = () => {
           timer: 1500,
         });
         setLoading(false);
-        e.target.email.value = "";
-        e.target.password.value = "";
+        const form = e.target as HTMLFormElement;
+        (form.elements.namedItem("email") as HTMLInputElement).value = "";
+        (form.elements.namedItem("password") as HTMLInputElement).value = "";
         navigate(from, { replace: true });
         return;
       }

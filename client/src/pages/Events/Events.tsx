@@ -20,7 +20,7 @@ const Events = () => {
   console.log(searchByTitle, filterByDate);
   const axiosSecure = useAxiosSecure();
 
-  const { data, loading, refetch } = useQuery({
+  const { data, refetch } = useQuery({
     queryKey: ["events", searchByTitle, filterByDate],
     queryFn: async () => {
       const res = await axiosSecure.get(

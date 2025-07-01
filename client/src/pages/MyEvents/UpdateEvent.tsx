@@ -44,12 +44,13 @@ const UpdateEvent = () => {
 
   const handleUpdate = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
-    const eventTitle = e.target.eventTitle.value;
-    const name = e.target.name.value;
-    const email = e.target.email.value;
-    const location = e.target.location.value;
-    const description = e.target.description.value;
-    const eventPhoto = e.target.photoURL.value;
+    const form = e.target as HTMLFormElement;
+    const eventTitle = (e.target as HTMLFormElement).eventTitle.value;
+    const name = (form.elements.namedItem("name") as HTMLInputElement).value;
+    const email = (e.target as HTMLFormElement).email.value;
+    const location = (e.target as HTMLFormElement).location.value;
+    const description = (e.target as HTMLFormElement).description.value;
+    const eventPhoto = (e.target as HTMLFormElement).photoURL.value;
     if (!selectedDate || !selectedTime) {
       Swal.fire({
         title: "Please select both Date And Time",

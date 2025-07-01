@@ -10,7 +10,7 @@ const OurEvents = () => {
 
   const axiosSecure = useAxiosSecure();
 
-  const { data, loading, refetch } = useQuery({
+  const { data, refetch } = useQuery({
     queryKey: ["events"],
     queryFn: async () => {
       const res = await axiosSecure.get("api/events/get-events");
