@@ -1,5 +1,5 @@
 <div align="center">
-  <img height="400" src="https://i.ibb.co.com/k3nDpmh/git-Hub-banner.jpg"  />
+  <img height="400" src="https://github.com/shahbaz-kamal/gather-grid/blob/main/client/src/assets/git_banner.png"  />
 </div>
 
 ###
@@ -16,7 +16,8 @@
 
 ###
 
-<p align="left">https://71-digital-sign.netlify.app/</p>
+<p align="left">Frontend :https://gather-grid-by-shahbaz.netlify.app/</p>
+<p align="left">Backened :https://gather-grid-server.vercel.app/</p>
 
 ###
 

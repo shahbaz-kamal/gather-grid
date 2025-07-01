@@ -1,13 +1,6 @@
 import express from "express";
-import {
-  addEvent,
-  deleteMyEvent,
-  getEvents,
-  getMyEvents,
-  getSingleEvent,
-  joinEvent,
-  updateEvent,
-} from "../../controllers/events.controller";
+import { addEvent, deleteMyEvent, getEvents, getMyEvents, getSingleEvent, joinEvent, updateEvent } from "../controllers/events.controller";
+
 
 export const eventsRoutes = express.Router();
 
@@ -30,4 +23,4 @@ eventsRoutes.get("/my-events", getMyEvents);
 
 //delete an event
 
-eventsRoutes.delete("/delete/:id",deleteMyEvent)
+eventsRoutes.delete("/delete/:id", deleteMyEvent);

@@ -7,7 +7,7 @@ import { authRoutes } from "./app/routes/auth.routes";
 const app: Application = express();
 
 const corsOptions = {
-  origin: ["http://localhost:8800"],
+  origin: ["http://localhost:8800","https://gather-grid-by-shahbaz.netlify.app"],
   credentials: true,
 };
 // middlewares

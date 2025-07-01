@@ -1,5 +1,5 @@
 import { NextFunction, Request, Response } from "express";
-import { userCollection } from "../app/utils/connectDb";
+import { userCollection } from "../utils/connectDb";
 import bcrypt from "bcryptjs";
 import jwt from "jsonwebtoken";
 import dotenv from "dotenv";
@@ -93,5 +93,3 @@ export const getCurrentUser = async (
     next(err);
   }
 };
-
-

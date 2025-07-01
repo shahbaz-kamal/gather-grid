@@ -3,7 +3,8 @@ import {
   getCurrentUser,
   register,
   signIn,
-} from "../../controllers/auth.controller";
+} from "../controllers/auth.controller";
+
 export const authRoutes = express.Router();
 
 authRoutes.post("/register", register);

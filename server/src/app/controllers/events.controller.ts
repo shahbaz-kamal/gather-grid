@@ -1,6 +1,6 @@
 import { Request, Response, NextFunction } from "express";
-import { IEvent } from "../app/interfaces/events.interface";
-import { eventCollection } from "../app/utils/connectDb";
+import { IEvent } from "../interfaces/events.interface";
+import { eventCollection } from "../utils/connectDb";
 import { ObjectId } from "mongodb";
 
 //add event
@@ -273,7 +273,7 @@ export const deleteMyEvent = async (
 
     const query = { _id: new ObjectId(id) };
     const result = await eventCollection.deleteOne(query);
-    if (res.deletedCount === 0) {
+    if (result.deletedCount === 0) {
       res.status(404).json({ success: false, message: "Could not delete" });
       return;
     }
