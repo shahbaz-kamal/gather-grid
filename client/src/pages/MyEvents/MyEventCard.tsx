@@ -13,8 +13,16 @@ import Swal from "sweetalert2";
 
 const MyEventCard = ({ singleEvent, refetch }) => {
   const axiosSecure = useAxiosSecure();
-  const { _id, eventTitle, eventPhoto, dateAndTime, location, attendeeCount } =
-    singleEvent;
+  const {
+    _id,
+    eventTitle,
+    eventPhoto,
+    dateAndTime,
+    location,
+    attendeeCount,
+    name: hostedBy,
+    description,
+  } = singleEvent;
   const handleDelete = async () => {
     try {
       Swal.fire({
@@ -61,9 +69,11 @@ const MyEventCard = ({ singleEvent, refetch }) => {
       <div className="card-body p-4 relative">
         {/* Edit/Delete Buttons */}
         <div className="absolute top-4 right-4 flex gap-2">
-          <button className="text-blue-600 hover:text-blue-800" title="Edit">
-            <FaEdit />
-          </button>
+          <Link to={`/update-event/${_id}`}>
+            <button className="text-blue-600 hover:text-blue-800" title="Edit">
+              <FaEdit />
+            </button>
+          </Link>
           <button
             onClick={handleDelete}
             className="text-red-600 hover:text-red-800"
@@ -76,6 +86,9 @@ const MyEventCard = ({ singleEvent, refetch }) => {
         <h2 className="text-lg font-semibold text-light-text dark:text-dark-text mb-1">
           {eventTitle}
         </h2>
+        <p className="text-sm text-gray-600 dark:text-gray-400 mt-1">
+          <strong>Hosted by:</strong> {hostedBy || "Unknown"}
+        </p>
 
         <div className="flex items-center text-sm text-gray-500 dark:text-gray-300 gap-2 mt-1">
           <FaRegCalendarAlt className="text-light-accent dark:text-dark-primary" />
@@ -86,6 +99,9 @@ const MyEventCard = ({ singleEvent, refetch }) => {
           <FaMapMarkerAlt className="text-light-accent dark:text-dark-primary" />
           <span>{location}</span>
         </div>
+        <p className="text-sm text-gray-600 dark:text-gray-400 mt-2 line-clamp-3">
+          {description}
+        </p>
 
         <div className="flex items-center text-sm text-gray-500 dark:text-gray-300 gap-2 mt-1 mb-2">
           <FaUsers className="text-light-accent dark:text-dark-primary" />

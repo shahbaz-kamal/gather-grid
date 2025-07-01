@@ -6,8 +6,16 @@ import Swal from "sweetalert2";
 import { Link } from "react-router";
 
 const OurEventCard = ({ event, refetch }) => {
-  const { _id, eventTitle, dateAndTime, location, eventPhoto, attendeeCount } =
-    event;
+  const {
+    _id,
+    eventTitle,
+    dateAndTime,
+    location,
+    eventPhoto,
+    attendeeCount,
+    name: hostedBy,
+    description,
+  } = event;
   const { user } = useAuth();
   const axiosSecure = useAxiosSecure();
   const handleJoin = async () => {
@@ -21,8 +29,9 @@ const OurEventCard = ({ event, refetch }) => {
           showConfirmButton: false,
           timer: 2000,
         });
+        refetch();
       }
-      refetch();
+     
     } catch (error) {
       console.log(error.message);
     }
@@ -41,34 +50,42 @@ const OurEventCard = ({ event, refetch }) => {
         <h2 className="card-title text-lg font-semibold text-light-text dark:text-dark-text">
           {eventTitle}
         </h2>
+
+        <p className="text-sm text-gray-600 dark:text-gray-400 mt-1">
+          <strong>Hosted by:</strong> {hostedBy || "Unknown"}
+        </p>
+
         <div className="flex items-center text-sm text-gray-500 dark:text-gray-300 gap-2 mt-2">
           <FaRegCalendarAlt className="text-light-accent dark:text-dark-primary" />
           <span>{format(new Date(dateAndTime), "PPp")}</span>
         </div>
+
         <div className="flex items-center text-sm text-gray-500 dark:text-gray-300 gap-2 mt-1">
           <FaMapMarkerAlt className="text-light-accent dark:text-dark-primary" />
           <span>{location}</span>
         </div>
-        <div className="flex items-center text-sm text-gray-500 dark:text-gray-300 gap-2 mt-1">
-          <span>🧍‍♂️ {attendeeCount} attending</span>
+
+        <p className="text-sm text-gray-600 dark:text-gray-400 mt-2 line-clamp-3">
+          {description}
+        </p>
+
+        <div className="flex items-center text-sm text-gray-500 dark:text-gray-300 gap-2 mt-2">
+          <span>🧍‍♂️ {attendeeCount || 0} attending</span>
         </div>
+
         <div className="mt-4 flex justify-between">
           <Link to={`/details/${_id}`}>
-            {" "}
             <button className="btn bg-light-accent dark:bg-dark-primary/60 text-white dark:text-dark-text border-none hover:bg-light-primary hover:dark:bg-dark-accent btn-sm">
               View Details
             </button>
           </Link>
-          {user && user?.email ? (
-            <button
-              onClick={handleJoin}
-              className="btn bg-light-accent dark:bg-dark-primary/60 text-white dark:text-dark-text border-none hover:bg-light-primary hover:dark:bg-dark-accent btn-sm"
-            >
-              Join Event
-            </button>
-          ) : (
-            ""
-          )}
+
+          <button
+            onClick={handleJoin}
+            className="btn bg-light-accent dark:bg-dark-primary/60 text-white dark:text-dark-text border-none hover:bg-light-primary hover:dark:bg-dark-accent btn-sm"
+          >
+            Join Event
+          </button>
         </div>
       </div>
     </div>

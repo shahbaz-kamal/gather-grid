@@ -9,11 +9,15 @@ import Register from "../pages/Register/Register";
 import PrivateRoute from "./PrivateRoute";
 import Details from "../pages/Details/Details";
 import MyEvents from "../pages/MyEvents/MyEvents";
+import UpdateEvent from "../pages/MyEvents/UpdateEvent";
+import ErrorElement from "../components/ErrorElement";
+
 
 export const router = createBrowserRouter([
   {
     path: "/",
     element: <MainLayout></MainLayout>,
+    errorElement: <ErrorElement></ErrorElement>,
     children: [
       {
         path: "/",
@@ -48,6 +52,14 @@ export const router = createBrowserRouter([
         element: (
           <PrivateRoute>
             <Details></Details>
+          </PrivateRoute>
+        ),
+      },
+      {
+        path: "/update-event/:id",
+        element: (
+          <PrivateRoute>
+            <UpdateEvent></UpdateEvent>
           </PrivateRoute>
         ),
       },

@@ -4,6 +4,7 @@ import { useQuery } from "@tanstack/react-query";
 import OurEventCard from "../Home/OurEventCard";
 import useAxiosSecure from "../../Hooks/useAxiosSecure";
 import { RxCross1 } from "react-icons/rx";
+import { Helmet } from "react-helmet-async";
 
 const Events = () => {
   const [events, setEvents] = useState([]);
@@ -38,6 +39,9 @@ const Events = () => {
           heading="Our Events"
           subheading="Explore all Our Events"
         ></SectionTitle>
+        <Helmet>
+          <title>Events | Gather Grid</title>
+        </Helmet>
       </header>
       {/* filtering option */}
       <section className="grid grid-cols-1 md:grid-cols-3 gap-6">
@@ -79,7 +83,11 @@ const Events = () => {
       </section>
       <section className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 mt-6 md:mt-8 gap-6">
         {events.map((event) => (
-          <OurEventCard key={event._id} event={event}></OurEventCard>
+          <OurEventCard
+            key={event._id}
+            event={event}
+            refetch={refetch}
+          ></OurEventCard>
         ))}
       </section>
     </div>

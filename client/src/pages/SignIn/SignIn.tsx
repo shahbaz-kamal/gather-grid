@@ -5,6 +5,7 @@ import { FaEye, FaEyeSlash } from "react-icons/fa";
 import useAxiosSecure from "../../Hooks/useAxiosSecure";
 import Swal from "sweetalert2";
 import useAuth from "../../Hooks/useAuth";
+import { Helmet } from "react-helmet-async";
 
 const SignIn = () => {
   const { setUser, setLoading } = useAuth();
@@ -14,7 +15,7 @@ const SignIn = () => {
   const location = useLocation();
   const from = location.state?.from?.pathname || "/";
   //handling sign in
-  const handleSignIn = async (e:React.FormEvent<HTMLFormElement>) => {
+  const handleSignIn = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     const email = e.target.email.value;
     const password = e.target.password.value;
@@ -94,6 +95,9 @@ const SignIn = () => {
           heading="Welcome Back to GatherGrid"
           subheading="Plan, join, and manage your events — all in one place."
         ></SectionTitle>
+        <Helmet>
+          <title>Sign in | Gather Grid</title>
+        </Helmet>
       </header>
       <div className="card bg-base-100 w-full max-w-sm shadow-2xl">
         <form onSubmit={handleSignIn} className="card-body">

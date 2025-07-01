@@ -1,23 +1,48 @@
-import React, { useState } from "react";
-import SectionTitle from "../../components/shared/SectionTitle";
-
-import DatePicker from "react-datepicker";
-import "react-datepicker/dist/react-datepicker.css";
-import { AiOutlineCalendar } from "react-icons/ai";
-import { IoTimeOutline } from "react-icons/io5";
-import Swal from "sweetalert2";
-import useAxiosSecure from "../../Hooks/useAxiosSecure";
+import React, { useEffect, useState } from "react";
 import useAuth from "../../Hooks/useAuth";
-import { Helmet } from "react-helmet-async";
+import useAxiosSecure from "../../Hooks/useAxiosSecure";
+import Swal from "sweetalert2";
+import SectionTitle from "../../components/shared/SectionTitle";
+import DatePicker from "react-datepicker";
+import { useQuery } from "@tanstack/react-query";
+import { useParams } from "react-router";
+import Loading from "../../components/shared/Loading";
+
 const TypedDatePicker = DatePicker as unknown as React.FC<any>;
-const AddEvent = () => {
+
+const UpdateEvent = () => {
+  const { id } = useParams<{ id: string }>();
+
+  const { user } = useAuth();
+  const axiosSecure = useAxiosSecure();
   const [selectedDate, setSelectedDate] = useState<Date | null>(null);
   const [selectedTime, setSelectedTime] = useState<Date | null>(null);
-  const { user } = useAuth();
 
-  const axiosSecure = useAxiosSecure();
+  const [singleData, setSingleData] = useState({});
 
-  const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
+  const { data, isLoading } = useQuery({
+    queryKey: ["event", id],
+    queryFn: async () => {
+      const res = await axiosSecure.get(`api/events/get-single-event/${id}`);
+      return res.data.event;
+    },
+    enabled: !!id,
+  });
+  useEffect(() => {
+    if (data?.dateAndTime) {
+      const fullDate = new Date(data.dateAndTime);
+      setSelectedDate(fullDate); // sets the full date
+      setSelectedTime(fullDate); // same Date object, but used as time
+    }
+  }, [data]);
+  if (isLoading || !data) {
+    return <Loading />;
+  }
+  console.log(data);
+  const { _id, eventTitle, eventPhoto, dateAndTime, location, attendeeCount } =
+    data;
+
+  const handleUpdate = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     const eventTitle = e.target.eventTitle.value;
     const name = e.target.name.value;
@@ -52,8 +77,8 @@ const AddEvent = () => {
     };
 
     try {
-      const response = await axiosSecure.post(
-        "api/events/add-event",
+      const response = await axiosSecure.patch(
+        `api/events/update-event/${_id}`,
         eventData
       );
       console.log(response);
@@ -79,15 +104,12 @@ const AddEvent = () => {
   return (
     <div className="mt-20 container mx-auto px-4 md:px-0">
       <header>
-        <SectionTitle heading="Add Events" subheading=""></SectionTitle>
-        <Helmet>
-          <title>Add Events | Gather Grid</title>
-        </Helmet>
+        <SectionTitle heading="Update Events" subheading=""></SectionTitle>
       </header>
       <section>
         <div className="card bg-base-100 w-full shadow-2xl  mx-auto lg:w-[70%] ">
           <form
-            onSubmit={handleSubmit}
+            onSubmit={handleUpdate}
             className="card-body  grid grid-cols-1 md:grid-cols-2 gap-4"
           >
             <div className="form-control flex flex-col">
@@ -99,6 +121,7 @@ const AddEvent = () => {
               <input
                 type="text"
                 name="eventTitle"
+                defaultValue={eventTitle}
                 className="input input-bordered w-full"
                 placeholder="Enter your Event Title"
                 required
@@ -175,6 +198,7 @@ const AddEvent = () => {
                 </span>
               </label>
               <input
+                defaultValue={location}
                 type="text"
                 name="location"
                 className="input input-bordered w-full"
@@ -189,6 +213,7 @@ const AddEvent = () => {
                 </span>
               </label>
               <input
+                defaultValue={data?.description}
                 type="text"
                 name="description"
                 className="input input-bordered w-full"
@@ -203,6 +228,7 @@ const AddEvent = () => {
                 </span>
               </label>
               <input
+                defaultValue={eventPhoto}
                 type="text"
                 name="photoURL"
                 className="input input-bordered w-full"
@@ -216,7 +242,7 @@ const AddEvent = () => {
                 type="submit"
                 className="btn  bg-light-accent border-none dark:bg-dark-primary/60 text-light-text dark:text-dark-text hover:bg-light-primary hover:dark:bg-dark-accent shadow-none  transition duration-300 ease-in-out text-base md:text-lg w-full "
               >
-                Add Event
+                Update Event
               </button>
             </div>
           </form>
@@ -226,4 +252,4 @@ const AddEvent = () => {
   );
 };
 
-export default AddEvent;
+export default UpdateEvent;

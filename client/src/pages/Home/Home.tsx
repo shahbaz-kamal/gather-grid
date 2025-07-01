@@ -1,3 +1,4 @@
+import { Helmet } from "react-helmet-async";
 import Banner from "./Banner";
 import FAQ from "./FAQ";
 import OurEvents from "./OurEvents";
@@ -7,6 +8,9 @@ import Testimonial from "./Testimonial";
 const Home = () => {
   return (
     <div className="space-y-6 md:space-y-10">
+      <Helmet>
+        <title>Home | Gather Grid</title>
+      </Helmet>
       <section>
         <Banner></Banner>
       </section>

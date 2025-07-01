@@ -5,12 +5,13 @@ import { Link, useNavigate } from "react-router";
 import useAxiosSecure from "../../Hooks/useAxiosSecure";
 import Swal from "sweetalert2";
 import useAuth from "../../Hooks/useAuth";
+import { Helmet } from "react-helmet-async";
 
 const Register = () => {
   const [showPassword, setShowPassword] = useState(false);
   const axiosSecure = useAxiosSecure();
   const navigate = useNavigate();
-  const {setLoading, loading} = useAuth();
+  const { setLoading, loading } = useAuth();
 
   interface User {
     name: string;
@@ -19,7 +20,7 @@ const Register = () => {
     photo: string;
   }
 
-  const handleSubmit = async (e:React.FormEvent<HTMLFormElement>) => {
+  const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     const name = e.target.name.value;
     const email = e.target.email.value;
@@ -28,35 +29,35 @@ const Register = () => {
     const newUser: User = { name, email, password, photo };
     console.log(newUser);
     setLoading(true);
-     // verifying password
-     const regexPass = /^.{6,}$/;
-     const regexUpperCase = /[A-Z]/;
-     const regexLowerCase = /[a-z]/;
- 
-     if (!regexPass.test(password)) {
-       Swal.fire({
-         icon: "error",
-         title: "Oops...",
-         text: "Password should be at least 6 characters",
-       });
-       return;
-     }
-     if (!regexUpperCase.test(password)) {
-       Swal.fire({
-         icon: "error",
-         title: "Oops...",
-         text: "Password should contain at least 1 uppercase letter",
-       });
-       return;
-     }
-     if (!regexLowerCase.test(password)) {
-       Swal.fire({
-         icon: "error",
-         title: "Oops...",
-         text: "Password should contain at least 1 lowercase letter",
-       });
-       return;
-     }
+    // verifying password
+    const regexPass = /^.{6,}$/;
+    const regexUpperCase = /[A-Z]/;
+    const regexLowerCase = /[a-z]/;
+
+    if (!regexPass.test(password)) {
+      Swal.fire({
+        icon: "error",
+        title: "Oops...",
+        text: "Password should be at least 6 characters",
+      });
+      return;
+    }
+    if (!regexUpperCase.test(password)) {
+      Swal.fire({
+        icon: "error",
+        title: "Oops...",
+        text: "Password should contain at least 1 uppercase letter",
+      });
+      return;
+    }
+    if (!regexLowerCase.test(password)) {
+      Swal.fire({
+        icon: "error",
+        title: "Oops...",
+        text: "Password should contain at least 1 lowercase letter",
+      });
+      return;
+    }
     const result = await axiosSecure.post("api/auth/register", newUser);
     if (result.data.success) {
       Swal.fire({
@@ -91,6 +92,9 @@ const Register = () => {
           heading="Welcome Back to GatherGrid"
           subheading="Plan, join, and manage your events — all in one place."
         ></SectionTitle>
+        <Helmet>
+          <title>Register | Gather Grid</title>
+        </Helmet>
       </header>
       <div className="card bg-base-100 w-full max-w-sm shadow-2xl">
         <form onSubmit={handleSubmit} className="card-body">

@@ -15,7 +15,6 @@ const OurEvents = () => {
     queryFn: async () => {
       const res = await axiosSecure.get("api/events/get-events");
       setEvents(res.data.events);
-
       return res.data;
     },
   });
@@ -31,7 +30,11 @@ const OurEvents = () => {
       </header>
       <section className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 mt-6 md:mt-8 gap-6">
         {events.slice(0, 8).map((event) => (
-          <OurEventCard key={event._id} event={event} refetch={refetch}></OurEventCard>
+          <OurEventCard
+            key={event._id}
+            event={event}
+            refetch={refetch}
+          ></OurEventCard>
         ))}
       </section>
       <div className="text-center">

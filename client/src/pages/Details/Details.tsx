@@ -10,6 +10,7 @@ import {
 import { format } from "date-fns";
 import Swal from "sweetalert2";
 import Loading from "../../components/shared/Loading";
+import { Helmet } from "react-helmet-async";
 
 const Details = () => {
   const { id } = useParams<{ id: string }>();
@@ -41,15 +42,16 @@ const Details = () => {
     enabled: !!id, // only run if id exists
   });
 
-
-
-
   if (isLoading) {
     return <Loading></Loading>;
   }
 
   if (isError || !data) {
-    return <p className="text-center text-lg text-red-500 mt-20">Failed to load event.</p>;
+    return (
+      <p className="text-center text-lg text-red-500 mt-20">
+        Failed to load event.
+      </p>
+    );
   }
   const {
     eventTitle,
@@ -64,7 +66,9 @@ const Details = () => {
   return (
     <div className="mt-20 container mx-auto px-4">
       <SectionTitle heading="Event Details" />
-
+      <Helmet>
+        <title>Details| Gather Grid</title>
+      </Helmet>
       <div className="bg-base-100 shadow-xl rounded-xl overflow-hidden md:flex">
         {/* Image */}
         <div className="md:w-1/2 h-64 md:h-auto">
@@ -104,7 +108,10 @@ const Details = () => {
           </div>
 
           <div className="mt-6">
-            <button onClick={handleJoin} className="btn bg-light-accent dark:bg-dark-primary/60 text-white dark:text-dark-text border-none hover:bg-light-primary hover:dark:bg-dark-accent">
+            <button
+              onClick={handleJoin}
+              className="btn bg-light-accent dark:bg-dark-primary/60 text-white dark:text-dark-text border-none hover:bg-light-primary hover:dark:bg-dark-accent"
+            >
               Join Event
             </button>
           </div>

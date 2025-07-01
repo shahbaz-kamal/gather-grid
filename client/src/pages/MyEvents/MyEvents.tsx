@@ -4,6 +4,8 @@ import useAuth from "../../Hooks/useAuth";
 import { useQuery } from "@tanstack/react-query";
 import useAxiosSecure from "../../Hooks/useAxiosSecure";
 import MyEventCard from "./MyEventCard";
+import Loading from "../../components/shared/Loading";
+import { Helmet } from "react-helmet-async";
 
 const MyEvents = () => {
   const { user } = useAuth();
@@ -24,7 +26,22 @@ const MyEvents = () => {
     },
   });
 
-  console.log(myEvents);
+  if (isLoading) {
+    return <Loading></Loading>;
+  }
+  if (myEvents.length === 0) {
+    return (
+      <div className="mt-20 ">
+        <h3 className="text-lg font-semibold text-light-text dark:text-dark-text text-center">
+          You have not created any event. Please create events from Add Event
+          route to see your event.
+        </h3>
+        <Helmet>
+          <title>My Events | Gather Grid</title>
+        </Helmet>
+      </div>
+    );
+  }
 
   return (
     <div className="mt-20 container mx-auto">
@@ -33,12 +50,16 @@ const MyEvents = () => {
           heading="My Events"
           subheading="All events you've joined or organized"
         ></SectionTitle>
+        <Helmet>
+          <title>My Events | Gather Grid</title>
+        </Helmet>
       </header>
       <section className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 mt-6 md:mt-8">
         {myEvents.map((singleEvent) => (
           <MyEventCard
             key={singleEvent._id}
-            singleEvent={singleEvent} refetch={refetch}
+            singleEvent={singleEvent}
+            refetch={refetch}
           ></MyEventCard>
         ))}
       </section>
